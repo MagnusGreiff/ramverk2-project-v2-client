@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.chat_header {
+    text-align: center;
+}
+
+.output {
+    border: 1px solid black;
+    width: 90%;
+    margin: auto;
+    word-wrap: break-word;
+    height: 80vh;
+    overflow-y: scroll;
+}
+
+.output .chat_output {
+    display: flex;
+    flex-direction: row;
+}
+
+.output .chat_output .chat_time {
+    margin-right: 10px;
+}
+
+.connect_p {
+    display: flex;
+    position: relative;
+    width: 90%;
+    flex-direction: row;
+    margin: auto auto 2%;
+}
+
+.connect_p input[type=text] {
+    width: 100%;
+    height: 3vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-right: 2px;
+}
+
+.connect_p input[type=button]:hover {
+    background-color: #45a049;
+}
+
+.connect_p input[type=button] {
+    margin: auto;
+    height: 3vh;
+    width: 50%;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.disconnect_p {
+    display: flex;
+    position: relative;
+    width: 90%;
+    flex-direction: column;
+    margin: auto auto 2%;
+}
+
+.disconnect_p input[type=button]:hover {
+    background-color: #45a049;
+}
+
+.disconnect_p input[type=button] {
+    height: 3vh;
+    width: 100%;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.send_message {
+    display: flex;
+    position: relative;
+    width: 90%;
+    flex-direction: column;
+    margin: auto;
+}
+
+.send_message input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.send_message input[type=button]:hover {
+    background-color: #45a049;
+}
+
+.send_message input[type=button] {
+    width: 100%;
+    background-color: #4caf50;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin:auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loadingText {
+    text-align: center;
+}

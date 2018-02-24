@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Start | Me-sida</title>
+    <link rel="stylesheet" href="../src/stylesheets/main.css" />
+</head>
+
+<body>
+    <h1 class="chat_header">Chat</h1>
+
+    <form id="form1" class="chatform">
+
+        <p id="connect_p" class="connect_p">
+            <label>IP:</label>
+            <input id="connect_url" type="text" value="ws://localhost:3000/">
+            <label>Username:</label>
+            <input type="text" name="user" id="user" required>
+            <input type="hidden" name="protocol" id="protocol" value="json">
+            <input id="connect" type="button" value="Connect">
+        </p>
+
+        <p id="disconnect_p" class="disconnect_p" style="display: none">
+            <input id="close" type="button" value="Close connection">
+        </p>
+
+        <p class="chat_log">
+            <div id="output" class="output"></div>
+        </p>
+
+        <div class="loader" id="loader"></div>
+        <p class="loadingText" id="loadingText">Loading The last 20 messages!</p>
+
+        <p class="send_message">
+            <input id="message" type="text">
+            <input id="send_message" type="button" value="Send message">
+        </p>
+    </form>
+
+    <script src="../src/js/chat.js" charset="utf-8"></script>
+</body>
+
+</html>
