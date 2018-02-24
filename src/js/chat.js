@@ -1,17 +1,8 @@
 "use strict";
-
 /* eslint-disable no-unused-vars */
-
-
-// const chatFunctions = require('electron').remote.require('./files/js/chatFunctions');
 const db = require('../src/js/database.js')
-
 const cf = require('chat-functions');
 
-
-const {
-    ipcRenderer
-} = require('electron');
 
 let websocket;
 let url;
@@ -63,6 +54,15 @@ if (document) {
             /* TODO Change this*/
             let data = await db.dbGetAllData();
 
+            let newUser = {
+                name: user.value,
+                type: 'newUser'
+            };
+
+            websocket.send(JSON.stringify(newUser));
+
+            data.reverse();
+
             for (let item of data) {
                 let text;
 
@@ -74,9 +74,9 @@ if (document) {
                     text = item.text;
                     if (text !== undefined) {
                         if (text.startsWith("/me")) {
-                           await cf.outputLog("* " + item.id + text, item.date, output);
+                            await cf.outputLog("* " + item.id + text, item.date, output);
                         } else {
-                           await cf.outputLog(item.id + " said: " + item.text, item.date, output);
+                            await cf.outputLog(item.id + " said: " + item.text, item.date, output);
                         }
                     }
                 }
@@ -88,16 +88,34 @@ if (document) {
             sendMessage.style.display = "block";
             message.style.display = "block";
             //
-            cf.outputLog("You connected to: " + url.value + " as user: "
-                + user.value, null, output);
+            cf.outputLog("You connected to: " + url.value + " as user: " +
+                user.value, null, output);
             disconnectP.style.display = "flex";
             sendText(" connected", user.value, true, false, false);
         };
 
         websocket.onmessage = async (event) => {
-            let text = await cf.checkProtocol(event, protocol.value);
+            // console.log(event);
+            let parsedData = JSON.parse(event.data);
+            let userList = parsedData.data;
+            //
+            if (userList.type == "userList") {
+                document.getElementById('users').innerHTML = "";
+                let users = userList.userList;
+                let ul = document.createElement('ul');
 
-            outputToHtml(text);
+                for (var i = 0; i < users.length; i++) {
+                    let li = document.createElement('li');
+
+                    li.appendChild(document.createTextNode(users[i]));
+                    ul.appendChild(li);
+                }
+                document.getElementById('users').appendChild(ul)
+            } else {
+                let text = await cf.checkProtocol(event, protocol.value);
+
+                outputToHtml(text);
+            }
         };
 
         websocket.onclose = () => {
@@ -129,18 +147,10 @@ if (document) {
     close.addEventListener("click", ( /*event*/ ) => {
         sendText(" disconnected", user.value, false, true, false);
         console.log("Inside disconnect");
-        websocket.close();
         user.value = "";
         output.innerHTML = '';
     });
-}
-
-// // Thank you: https://codeburst.io/asynchronous-code-inside-an-array-loop-c5d704006c99
-// let fetchData = function () {
-//     return new Promise(function (resolve, reject) {
-//         resolve();
-//     });
-// };
+};
 
 let closeConnection = () => {
     cf.outputLog("You disconnected from server: " + url.value, null, output);
@@ -159,7 +169,9 @@ let sendText = async (message, user, connecting, disconnecting, me) => {
         me: me
     };
 
-    let newMessage = message.replace(/\//gi, "%2F").replace(/\[/gi, "%5B").replace(/\]/gi, "%5D");
+    let checkForUndefined = await cf.checkText(message);
+    // let newMessage = message.replace(/\//gi, "%2F").replace(/\[/gi, "%5B").replace(/\]/gi, "%5D");
+    let newMessage = checkForUndefined.replace(/\</gi, "%3C").replace(/\>/gi, "%3E").replace(/\=/gi, "%3D").replace(/\'/gi, "%27").replace(/\ /gi, "%20").replace(/\_/gi, "%5F").replace(/\//gi, "%2F").replace(/\-/gi, "%2D");
 
     let msg2 = {
         type: "message",
@@ -172,19 +184,24 @@ let sendText = async (message, user, connecting, disconnecting, me) => {
     };
 
     if (disconnecting) {
+        let disconnectedUser = {
+            name: user,
+            type: 'disconnectedUser'
+        };
+
+        websocket.send(JSON.stringify(disconnectedUser));
         websocket.send(JSON.stringify(msg));
         await db.dbInsertData(msg2);
+        websocket.close();
         return false;
-    }
-    //
-    let checkForUndefined = await cf.checkText(message);
+    };
 
     if (checkForUndefined !== undefined) {
         websocket.send(JSON.stringify(msg));
         await db.dbInsertData(msg2);
-    }
+    };
 };
-//
+
 let sendMessageCheck = () => {
     let messageText = message.value;
     let newText;
