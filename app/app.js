@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -79,7 +79,7 @@ module.exports = require("fs-jetpack");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"development","description":"Add here any environment specific stuff you like."}
+module.exports = {"name":"development","description":"Add here any environment specific stuff you like.","nodeGypRebuild":true}
 
 /***/ }),
 /* 3 */,
@@ -88,15 +88,16 @@ module.exports = {"name":"development","description":"Add here any environment s
 /* 6 */,
 /* 7 */,
 /* 8 */,
-/* 9 */
+/* 9 */,
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stylesheets_main_css__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stylesheets_main_css__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stylesheets_main_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__stylesheets_main_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_context_menu_js__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_external_links_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_context_menu_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_external_links_js__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_electron__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_electron___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_electron__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_fs_jetpack__ = __webpack_require__(1);
@@ -120,13 +121,13 @@ const appDir = __WEBPACK_IMPORTED_MODULE_4_fs_jetpack___default.a.cwd(app.getApp
 const manifest = appDir.read("package.json", "json");
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(11);
+var content = __webpack_require__(12);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -134,7 +135,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(13)(content, options);
+var update = __webpack_require__(14)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -151,21 +152,21 @@ if(false) {
 }
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(12)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
 // module
-exports.push([module.i, "* {\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    font: 14px \"Lucida Grande\", Helvetica, Arial, sans-serif;\n    display: flex;\n    min-height: 100vh;\n    flex-direction: column;\n}\n\n.chat_header {\n    text-align: center;\n}\n\n.output {\n    border: 1px solid black;\n    width: 90%;\n    margin: auto;\n    word-wrap: break-word;\n    height: 80vh;\n    overflow-y: scroll;\n}\n\n.output .chat_output {\n    display: flex;\n    flex-direction: row;\n}\n\n.output .chat_output .chat_time {\n    margin-right: 10px;\n}\n\n.connect_p {\n    display: flex;\n    position: relative;\n    width: 90%;\n    flex-direction: row;\n    margin: auto auto 2%;\n}\n\n.connect_p input[type=text] {\n    width: 100%;\n    height: 3vh;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n    box-sizing: border-box;\n    margin-right: 2px;\n}\n\n.connect_p input[type=button]:hover {\n    background-color: #45a049;\n}\n\n.connect_p input[type=button] {\n    margin: auto;\n    height: 3vh;\n    width: 50%;\n    background-color: #4caf50;\n    color: white;\n    border: none;\n    border-radius: 4px;\n    cursor: pointer;\n}\n\n.disconnect_p {\n    display: flex;\n    position: relative;\n    width: 90%;\n    flex-direction: column;\n    margin: auto auto 2%;\n}\n\n.disconnect_p input[type=button]:hover {\n    background-color: #45a049;\n}\n\n.disconnect_p input[type=button] {\n    height: 3vh;\n    width: 100%;\n    background-color: #4caf50;\n    color: white;\n    border: none;\n    border-radius: 4px;\n    cursor: pointer;\n}\n\n.send_message {\n    display: flex;\n    position: relative;\n    width: 90%;\n    flex-direction: column;\n    margin: auto;\n}\n\n.send_message input[type=text] {\n    width: 100%;\n    padding: 12px 20px;\n    margin: 8px 0;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n    box-sizing: border-box;\n}\n\n.send_message input[type=button]:hover {\n    background-color: #45a049;\n}\n\n.send_message input[type=button] {\n    width: 100%;\n    background-color: #4caf50;\n    color: white;\n    padding: 14px 20px;\n    border: none;\n    border-radius: 4px;\n    cursor: pointer;\n}\n\n.loader {\n    border: 16px solid #f3f3f3; /* Light grey */\n    border-top: 16px solid #3498db; /* Blue */\n    border-radius: 50%;\n    width: 120px;\n    height: 120px;\n    animation: spin 2s linear infinite;\n    margin:auto;\n}\n\n@keyframes spin {\n    0% { transform: rotate(0deg); }\n    100% { transform: rotate(360deg); }\n}\n\n.loadingText {\n    text-align: center;\n}\n", ""]);
+exports.push([module.i, "* {\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    font: 14px \"Lucida Grande\", Helvetica, Arial, sans-serif;\n    display: flex;\n    min-height: 100vh;\n    flex-direction: column;\n}\n\n.chat_header {\n    text-align: center;\n}\n\n.mess_and_users {\n    display: flex;\n}\n\n.users {\n    border: 1px solid black;\n    width: 15%;\n    height: 80vh;\n    margin-left: 5%;\n}\n\n.users ul li {\n    list-style-type: none;\n}\n\n.output {\n    border: 1px solid black;\n    width: 70%;\n    margin: auto;\n    word-wrap: break-word;\n    height: 80vh;\n    overflow-y: scroll;\n}\n\n.output .chat_output {\n    display: flex;\n    flex-direction: row;\n}\n\n.output .chat_output .chat_time {\n    margin-right: 10px;\n}\n\n.connect_p {\n    display: flex;\n    position: relative;\n    width: 90%;\n    flex-direction: row;\n    margin: auto auto 2%;\n}\n\n.connect_p input[type=text] {\n    width: 100%;\n    height: 3vh;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n    box-sizing: border-box;\n    margin-right: 2px;\n}\n\n.connect_p input[type=button]:hover {\n    background-color: #45a049;\n}\n\n.connect_p input[type=button] {\n    margin: auto;\n    height: 3vh;\n    width: 50%;\n    background-color: #4caf50;\n    color: white;\n    border: none;\n    border-radius: 4px;\n    cursor: pointer;\n}\n\n.disconnect_p {\n    display: flex;\n    position: relative;\n    width: 90%;\n    flex-direction: column;\n    margin: auto auto 2%;\n}\n\n.disconnect_p input[type=button]:hover {\n    background-color: #45a049;\n}\n\n.disconnect_p input[type=button] {\n    height: 3vh;\n    width: 100%;\n    background-color: #4caf50;\n    color: white;\n    border: none;\n    border-radius: 4px;\n    cursor: pointer;\n}\n\n.send_message {\n    display: flex;\n    position: relative;\n    width: 90%;\n    flex-direction: column;\n    margin: auto;\n}\n\n.send_message input[type=text] {\n    width: 100%;\n    padding: 12px 20px;\n    margin: 8px 0;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n    box-sizing: border-box;\n}\n\n.send_message input[type=button]:hover {\n    background-color: #45a049;\n}\n\n.send_message input[type=button] {\n    width: 100%;\n    background-color: #4caf50;\n    color: white;\n    padding: 14px 20px;\n    border: none;\n    border-radius: 4px;\n    cursor: pointer;\n}\n\n.loader {\n    border: 16px solid #f3f3f3; /* Light grey */\n    border-top: 16px solid #3498db; /* Blue */\n    border-radius: 50%;\n    width: 120px;\n    height: 120px;\n    animation: spin 2s linear infinite;\n    margin:auto;\n}\n\n@keyframes spin {\n    0% { transform: rotate(0deg); }\n    100% { transform: rotate(360deg); }\n}\n\n.loadingText {\n    text-align: center;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 /*
@@ -247,7 +248,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -303,7 +304,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(14);
+var	fixUrls = __webpack_require__(15);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -619,7 +620,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 
@@ -714,7 +715,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -772,7 +773,7 @@ document.addEventListener("contextmenu", event => {
 }, false);
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -79,7 +79,7 @@ module.exports = require("fs-jetpack");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"development","description":"Add here any environment specific stuff you like."}
+module.exports = {"name":"development","description":"Add here any environment specific stuff you like.","nodeGypRebuild":true}
 
 /***/ }),
 /* 3 */
@@ -107,8 +107,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
- // Special module holding environment variables which you declared
+
+
+const open = __webpack_require__(9); // Special module holding environment variables which you declared
 // in config/env_xxx.json file.
+
 
 
 
@@ -140,11 +143,18 @@ __WEBPACK_IMPORTED_MODULE_2_electron__["app"].on("ready", () => {
     pathname: __WEBPACK_IMPORTED_MODULE_0_path___default.a.join(__dirname, "app.html"),
     protocol: "file:",
     slashes: true
-  }));
+  })); // if (env.name === "development") {
+  //   mainWindow.openDevTools();
+  // }
 
-  if (__WEBPACK_IMPORTED_MODULE_6_env___default.a.name === "development") {
-    mainWindow.openDevTools();
-  }
+  mainWindow.webContents.on('new-window', (event, url) => {
+    event.preventDefault();
+    open(url);
+  });
+  mainWindow.on('close', function () {
+    //   <---- Catch close event
+    mainWindow.webContents.send('exitButton', 'clicked exit button');
+  });
 });
 __WEBPACK_IMPORTED_MODULE_2_electron__["app"].on("window-all-closed", () => {
   __WEBPACK_IMPORTED_MODULE_2_electron__["app"].quit();
@@ -176,7 +186,7 @@ const devMenuTemplate = {
     label: "Reload",
     accelerator: "CmdOrCtrl+R",
     click: () => {
-      __WEBPACK_IMPORTED_MODULE_0_electron__["BrowserWindow"].getFocusedWindow().webContents.reloadIgnoringCache();
+      console.log('y u refresh? >:D');
     }
   }, {
     label: "Toggle DevTools",
@@ -228,6 +238,14 @@ const editMenuTemplate = {
     label: "Select All",
     accelerator: "CmdOrCtrl+A",
     selector: "selectAll:"
+  }, {
+    label: 'disable refresh',
+    accelerator: 'CmdOrCtrl+R',
+
+    click() {
+      console.log('y u refresh? >:D');
+    }
+
   }]
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = editMenuTemplate;
@@ -322,6 +340,12 @@ const editMenuTemplate = {
   win.on("close", saveState);
   return win;
 });
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("open");
 
 /***/ })
 /******/ ]);

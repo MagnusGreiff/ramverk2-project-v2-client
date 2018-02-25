@@ -3,6 +3,9 @@
 const db = require('../src/js/database.js')
 const cf = require('chat-functions');
 
+const {
+    ipcRenderer
+} = require('electron');
 
 let websocket;
 let url;
@@ -98,7 +101,7 @@ if (document) {
             // console.log(event);
             let parsedData = JSON.parse(event.data);
             let userList = parsedData.data;
-            //
+
             if (userList.type == "userList") {
                 document.getElementById('users').innerHTML = "";
                 let users = userList.userList;
@@ -192,7 +195,7 @@ let sendText = async (message, user, connecting, disconnecting, me) => {
         websocket.send(JSON.stringify(disconnectedUser));
         websocket.send(JSON.stringify(msg));
         await db.dbInsertData(msg2);
-        websocket.close();
+        websocket.close(1000, 'meh');
         return false;
     };
 
@@ -243,3 +246,10 @@ let outputToHtml = (text) => {
 
     return text;
 };
+
+require('electron').ipcRenderer.on('exitButton', ( /*event, message*/ ) => {
+    sendText(" disconnected", user.value, false, true, false);
+    console.log("Inside disconnect");
+    user.value = "";
+    output.innerHTML = '';
+});

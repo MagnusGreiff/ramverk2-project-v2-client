@@ -6,8 +6,8 @@ export const devMenuTemplate = {
     {
       label: "Reload",
       accelerator: "CmdOrCtrl+R",
-      click: () => {
-        BrowserWindow.getFocusedWindow().webContents.reloadIgnoringCache();
+      click: () => { 
+          console.log('y u refresh? >:D')
       }
     },
     {

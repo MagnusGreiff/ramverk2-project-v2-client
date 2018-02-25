@@ -7,6 +7,7 @@ export const editMenuTemplate = {
     { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
     { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
     { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
-    { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
+    { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" },
+    { label: 'disable refresh', accelerator: 'CmdOrCtrl+R', click() { console.log('y u refresh? >:D') } },
   ]
 };
