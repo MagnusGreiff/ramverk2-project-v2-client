@@ -143,16 +143,17 @@ __WEBPACK_IMPORTED_MODULE_2_electron__["app"].on("ready", () => {
     pathname: __WEBPACK_IMPORTED_MODULE_0_path___default.a.join(__dirname, "app.html"),
     protocol: "file:",
     slashes: true
-  })); // if (env.name === "development") {
-  //   mainWindow.openDevTools();
-  // }
+  }));
+
+  if (__WEBPACK_IMPORTED_MODULE_6_env___default.a.name === "development") {
+    mainWindow.openDevTools();
+  }
 
   mainWindow.webContents.on('new-window', (event, url) => {
     event.preventDefault();
     open(url);
   });
   mainWindow.on('close', function () {
-    //   <---- Catch close event
     mainWindow.webContents.send('exitButton', 'clicked exit button');
   });
 });
