@@ -57,7 +57,7 @@ app.on("ready", () => {
         open(url);
   });
 
-  mainWindow.on('close', function() { //   <---- Catch close event
+  mainWindow.on('close', function() {
         mainWindow.webContents.send('exitButton', 'clicked exit button');
   });
 
