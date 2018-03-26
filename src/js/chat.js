@@ -69,18 +69,12 @@ if (document) {
             for (let item of data) {
                 let text;
 
-                // console.log(item.disconnect);
-
                 if (item.disconnect || item.connect) {
                     await cf.outputLog(item.id + item.text, item.date, output);
                 } else {
                     text = item.text;
                     if (text !== undefined) {
-                        if (text.startsWith("/me")) {
-                            await cf.outputLog("* " + item.id + text, item.date, output);
-                        } else {
-                            await cf.outputLog(item.id + " said: " + item.text, item.date, output);
-                        }
+                        await cf.outputLog(item.id + " said: " + item.text, item.date, output);
                     }
                 }
             }
@@ -98,7 +92,6 @@ if (document) {
         };
 
         websocket.onmessage = async (event) => {
-            // console.log(event);
             let parsedData = JSON.parse(event.data);
             let userList = parsedData.data;
 
@@ -149,7 +142,6 @@ if (document) {
      */
     close.addEventListener("click", ( /*event*/ ) => {
         sendText(" disconnected", user.value, false, true, false);
-        console.log("Inside disconnect");
         user.value = "";
         output.innerHTML = '';
     });
@@ -174,7 +166,7 @@ let sendText = async (message, user, connecting, disconnecting, me) => {
 
     let checkForUndefined = await cf.checkText(message);
     // let newMessage = message.replace(/\//gi, "%2F").replace(/\[/gi, "%5B").replace(/\]/gi, "%5D");
-    let newMessage = checkForUndefined.replace(/\</gi, "%3C").replace(/\>/gi, "%3E").replace(/\=/gi, "%3D").replace(/\'/gi, "%27").replace(/\ /gi, "%20").replace(/\_/gi, "%5F").replace(/\//gi, "%2F").replace(/\-/gi, "%2D");
+    let newMessage = checkForUndefined.replace(/\</gi, "%3C").replace(/\>/gi, "%3E").replace(/\=/gi, "%3D").replace(/\'/gi, "%27").replace(/\ /gi, "%20").replace(/\_/gi, "%5F").replace(/\//gi, "%2F").replace(/\-/gi, "%2D").replace(/\:/gi, "%3A").replace(/\./gi, "%2E").replace(/\?/gi, "%3F");
 
     let msg2 = {
         type: "message",
@@ -185,6 +177,7 @@ let sendText = async (message, user, connecting, disconnecting, me) => {
         disconnect: disconnecting,
         me: me
     };
+
 
     if (disconnecting) {
         let disconnectedUser = {
@@ -212,16 +205,9 @@ let sendMessageCheck = () => {
     if (!websocket || websocket.readyState === 3) {
         return false;
     } else {
-        if (messageText.startsWith("/me")) {
-            sendText(messageText, user.value, false, false, true);
-            newText = messageText.replace("/me", "");
-            message.value = '';
-            cf.outputLog("* " + user.value + newText, null, output);
-        } else {
-            sendText(messageText, user.value, false, false, false);
-            message.value = '';
-            cf.outputLog(user.value + " said: " + messageText, null, output);
-        }
+        sendText(messageText, user.value, false, false, false);
+        message.value = '';
+        cf.outputLog(user.value + " said: " + messageText, null, output);
     }
 };
 
@@ -249,7 +235,6 @@ let outputToHtml = (text) => {
 
 require('electron').ipcRenderer.on('exitButton', ( /*event, message*/ ) => {
     sendText(" disconnected", user.value, false, true, false);
-    console.log("Inside disconnect");
     user.value = "";
     output.innerHTML = '';
 });
