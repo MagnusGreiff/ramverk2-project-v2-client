@@ -9,6 +9,10 @@ sudo:           false
 
 git:
     submodules: false
+
+before_script:
+    - npm install
+
 before_install:
 - export TZ=Europe/Stockholm
 
