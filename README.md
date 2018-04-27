@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/MagnusGreiff/ramverk2-project-v2-client.svg?branch=master)](https://travis-ci.org/MagnusGreiff/ramverk2-project-v2-client)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/MagnusGreiff/ramverk2-project-v2-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/MagnusGreiff/ramverk2-project-v2-client/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/MagnusGreiff/ramverk2-project-v2-client/badges/build.png?b=master)](https://scrutinizer-ci.com/g/MagnusGreiff/ramverk2-project-v2-client/build-status/master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8c79c7408d4f15a37ef9/maintainability)](https://codeclimate.com/github/MagnusGreiff/Ramverk2-client/maintainability)
 # Applikationen och teknikval
 Jag har valt att bygga en chatt som består av både en klient som är byggd med hjälp av Electron samt en server som använder sig utav express och websocket. Jag valde att använda mig utav Electron för klienten då det verkar vara ett ramverk som är väldigt populärt och att man enkelt kan göra en desktop applikation. För servern valde jag express för att jag har använt det i tidigare kurser och jag kände att jag ville fortsätta lära mig att använda express. För realtid valde jag att använda mig utav WebSocket för att det var det som lärdes ut i kursen och jag kände inte jag ville testa något annat. När det kommer till databas valde jag att använda mig utav MongoDB av samma anledning som jag valde express och det är för att MongoDB användes i kursen.
 
