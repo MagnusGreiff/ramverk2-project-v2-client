@@ -2,6 +2,9 @@ checks:
     javascript: true
 
 build:
+    dependencies:
+        before:
+            - "npm install"
     environment:
         node: '8.6.0'
         mongodb: '3.2'
