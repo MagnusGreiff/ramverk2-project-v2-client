@@ -79,7 +79,7 @@ module.exports = require("fs-jetpack");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"development","description":"Add here any environment specific stuff you like.","nodeGypRebuild":true}
+module.exports = {"name":"test","description":"Add here any environment specific stuff you like."}
 
 /***/ }),
 /* 3 */,

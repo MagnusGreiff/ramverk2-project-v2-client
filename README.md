@@ -1,102 +1,103 @@
-# electron-boilerplate
+[![Build Status](https://travis-ci.org/MagnusGreiff/ramverk2-project-v2-client.svg?branch=master)](https://travis-ci.org/MagnusGreiff/ramverk2-project-v2-client)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/MagnusGreiff/ramverk2-project-v2-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/MagnusGreiff/ramverk2-project-v2-client/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/MagnusGreiff/ramverk2-project-v2-client/badges/build.png?b=master)](https://scrutinizer-ci.com/g/MagnusGreiff/ramverk2-project-v2-client/build-status/master)
+# Applikationen och teknikval
+Jag har valt att bygga en chatt som består av både en klient som är byggd med hjälp av Electron samt en server som använder sig utav express och websocket. Jag valde att använda mig utav Electron för klienten då det verkar vara ett ramverk som är väldigt populärt och att man enkelt kan göra en desktop applikation. För servern valde jag express för att jag har använt det i tidigare kurser och jag kände att jag ville fortsätta lära mig att använda express. För realtid valde jag att använda mig utav WebSocket för att det var det som lärdes ut i kursen och jag kände inte jag ville testa något annat. När det kommer till databas valde jag att använda mig utav MongoDB av samma anledning som jag valde express och det är för att MongoDB användes i kursen.
 
-A minimalistic boilerplate for [Electron runtime](http://electron.atom.io). Tested on Windows, macOS and Linux.  
+### Inkluderade krav för chatten är:
 
-This project contains only bare minimum of dependencies, to provide you with nice development environment. Doesn't impose on you any frontend technologies, so you can pick your favourite.
+* Möjlighet att se vilka användare som är online.
+* Möjlighet att se när en användare loggar in / loggar ut.
+* Möjlighet att se vem det är som har skrivit vad.
+* Använda StackOverflows API för att länka till användare och inlägg på StackOverflow. `[post]<:id>[/post]`
+används för att länka till ett inlägg och `[user]<:id>[/user]` används för att länka till en användare.
 
-# Quick start
+### Exkluderade krav för chatten är:
 
-Make sure you have [Node.js](https://nodejs.org) installed, then type the following commands known to every Node developer...
-```
-git clone https://github.com/szwacz/electron-boilerplate.git
-cd electron-boilerplate
-npm install
-npm start
-```
-...and you have a running desktop application on your screen.
+* Skicka personliga meddelande (PM)
+* /me
+* Inloggning
 
-# Structure of the project
 
-The application consists of two main folders...
+# Installation
+Först behöver du ladda ner koden för klienten, servern samt chat-functions. Det gör du enklast via respektive GitHub repo: [Klient](https://github.com/MagnusGreiff/ramverk2-project-v2-client), [Server](https://github.com/MagnusGreiff/ramverk2-project-v2-server), [Chat-functions](https://github.com/MagnusGreiff/ramverk2-project-v2-chat-functions).
+När du har laddat ner alla repon behöver du gå in i respektive repo och skriva `npm install` för att ladda ner alla dependencies.
+Du behöver lägga till en konfigurationsfil i servern/config som heter token.json om du vill göra mer än 100 request och den ska innehålla:
 
-`src` - files within this folder get transpiled or compiled (because Electron can't use them directly).
 
-`app` - contains all static assets which don't need any pre-processing. Put here images, CSSes, HTMLs, etc.
-
-The build process compiles the content of the `src` folder and puts it into the `app` folder, so after the build has finished, your `app` folder contains the full, runnable application.
-
-Treat `src` and `app` folders like two halves of one bigger thing.
-
-The drawback of this design is that `app` folder contains some files which should be git-ignored and some which shouldn't (see `.gitignore` file). But this two-folders split makes development builds much, much faster.
-
-# Development
-
-## Starting the app
 
 ```
-npm start
-```
-
-## The build pipeline
-
-Build process uses [Webpack](https://webpack.js.org/). The entry-points are `src/background.js` and `src/app.js`. Webpack will follow all `import` statements starting from those files and compile code of the whole dependency tree into one `.js` file for each entry point.
-
-[Babel](http://babeljs.io/) is also utilised, but mainly for its great error messages. Electron under the hood runs latest Chromium, hence most of the new JavaScript features are already natively supported.
-
-## Environments
-
-Environmental variables are done in a bit different way (not via `process.env`). Env files are plain JSONs in `config` directory, and build process dynamically links one of them as an `env` module. You can import it wherever in code you need access to the environment.
-```js
-import env from "env";
-console.log(env.name);
-```
-
-## Upgrading Electron version
-
-To do so edit `package.json`:
-```json
-"devDependencies": {
-  "electron": "1.7.9"
+{
+    "key": "example-key", //API key from StackOverflow
+    "type": "public" //Private or public
 }
 ```
-*Side note:* [Electron authors recommend](http://electron.atom.io/docs/tutorial/electron-versioning/) to use fixed version here.
 
-## Adding npm modules to your app
+* För att starta servern och mongodb i en Docker-kontainer skriver du `npm run start-docker`
 
-Remember to respect the split between `dependencies` and `devDependencies` in `package.json` file. Your distributable app will contain modules listed in `dependencies` after running the release script.
+* För att stänga av servern och mongoDb skriver du `npm run stop-docker`.
 
-*Side note:* If the module you want to use in your app is a native one (not pure JavaScript but compiled binary) you should first  run `npm install name_of_npm_module` and then `npm run postinstall` to rebuild the module for Electron. You need to do this once after you're first time installing the module. Later on, the postinstall script will fire automatically with every `npm install`.
+* För att starta servern behöver du skriva `npm start`.
 
-# Testing
+* För att starta klienten behöver du skriva `npm start`.
 
-Run all tests:
-```
-npm test
-```
 
-## Unit
+### Konfiguration
+Du kan välja själv om du vill använda någon annan Port eller DSN genom att lägga till:
 
-```
-npm run unit
-```
-Using [electron-mocha](https://github.com/jprichardson/electron-mocha) test runner with the [Chai](http://chaijs.com/api/assert/) assertion library. You can put your spec files wherever you want within the `src` directory, just name them with the `.spec.js` extension.
+* `export DBWEBB_PORT=your port`
+* `export DBWEBB_DSN=your dsn`
 
-## End to end
+i din version av `.bashrc` eller `.bash_profile`.
 
-```
-npm run e2e
-```
-Using [Mocha](https://mochajs.org/) and [Spectron](http://electron.atom.io/spectron/). This task will run all files in `e2e` directory with `.e2e.js` extension.
 
-# Making a release
 
-To package your app into an installer use command:
-```
-npm run release
-```
 
-Once the packaging process finished, the `dist` directory will contain your distributable file.
+# Testning
+Jag har valt att använda mig utav [Mocha](https://mochajs.org/) och [Chai](http://www.chaijs.com/)
 
-We use [electron-builder](https://github.com/electron-userland/electron-builder) to handle the packaging process. It has a lot of [customization options](https://www.electron.build/configuration/configuration), which you can declare under `"build"` key in `package.json`.
+Min kodtäckning är 77.78% för servern och för chat-functions 45.36%. Jag har bara haft möjlighet att testa min server och chat-functions då jag har märkt att det är väldigt svårt att testa min klient. Jag försökte testa klienten men gav upp för att jag inte fick det att fungera. Att testa servern var inte några problem då jag använde mig utav Chai som gör att man kan testa routes och se så att allt fungerar.
 
-You can package your app cross-platform from a single operating system, [electron-builder kind of supports this](https://www.electron.build/multi-platform-build), but there are limitations and asterisks. That's why this boilerplate doesn't do that by default.
+För att köra mina tester lokalt använder du kommandot `npm test`.
+
+För att se kodtäckning i terminal går det att köra: `test-nyc`.
+
+För att se kodtäckningen i webbläsaren behöver du köra följande kommando: `npm run test-browser`.
+
+Du kan också köra testerna i flera olika Docker-containrar med följande kommandon:
+
+* `npm run test-docker-1` med node 8.6.0
+* `npm run test-docker-2` med node 8.3.0
+* `npm run test-docker-3` med node 8.1.0
+
+
+### CI
+
+För varje repo (klient, server, chat-functions) finns det CI kopplat. Varje repo har följande kopplat:
+##### Byggtjänst:
+* Travis
+
+#### Kodtäckning och kodkvalite:
+* Scrutinizer
+* CodeClimate
+
+
+Jag valde följade tjänster för att jag har använt dem innan och jag vet att man kan få ut bra information från dem. Med Travis testar jag att mina repon byggs korrekt samt att alla mina tester passerar. Scrutizer och Codeclimat använder jag för att kolla på kvaliten av koden. Om det finns några buggar, onödiga kommentarer m.m. För att få en bättre kvalite på koden. Scrutinizer använder jag även för att få kodtäckning för mina enhetstester.
+
+Nu när jag använder mig utav CI-tjänster har jag blivit bättre på att undvika buggar/slarvfel för att nu vet jag hur dessa tjänster kollar på koden och det har gjort att kvaliten har blivit bättre.
+
+Jag har använt mig utav olika CI-tjänster ett bra tag nu och jag är nöjd med informationen man få från dem. De har verkligen hjälpt mig att bli en bättre programmerare.
+
+
+
+# Realtid
+För realtid valde jag att använda mig utav något som heter WebSocket och det gör att man kan t.ex skicka meddelande till andra människor i världen direkt (allså realtid). Jag valde WebSocket för att det var det som gicks igenom i kursen. Jag hade haft möjlighet att använda något annat för realtid men hände att jag vill fortsätta jobba med WebSocket. I min applikation kan man använda realtid genom att skicka ett meddelande via klienten till någon annan människa som använder klienten och då ser dem det direkt.
+
+
+# Databas
+För databas valde jag att använda mig utav något som heter MongoDB. Dels pågrund att det lärdes ut i kursen men också för att det var enkelt att jobba med. Jag använder databasen för att lagra alla meddelande. När man ansluter till servern via klienten laddas de x senaste meddelanden in och man får se en liten historik av vad som har sagt tidigare.
+
+När det kommer till traditionella relationsdatabaser tror jag att de kommer att få en fortsatt plats i mitt hjärta. Jag tycker om hur man använder sig utav relationsdatabaser. Jag har använt dem mycket under tiden här på BTH och jag tycker att man får en bra struktur på hur man bygger upp sin databas. Nu när jag har använt mig utav en icke-SQL baserad databas har jag märkt att jag saknar strukturen som kommer med en relationsdatabas och jag vill fortsätta jobba med relationsdatabaser i framtiden.
+
+#Modul
+Jag gjorde en modul som innehåller funktioner som hanterar utskriften av meddelande som finns i databasen samt när man skickar iväg ett nytt meddelande. När det kommer till NPM ser jag väldigt stora möjligheter. Att man kan ladda upp en modul är väldigt enkelt och att man sen kan ladda ner den sen med ett kommando har nog gjort att många använder tjänsten. Själv tycker jag om NPM. Det har varit smidigt att jobba med och jag kommer troligvis jobba med det i framtiden. Min modul hittar ni här: [Modul](https://www.npmjs.com/package/chat-functions)

@@ -79,7 +79,7 @@ module.exports = require("fs-jetpack");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"development","description":"Add here any environment specific stuff you like.","nodeGypRebuild":true}
+module.exports = {"name":"test","description":"Add here any environment specific stuff you like."}
 
 /***/ }),
 /* 3 */
@@ -143,11 +143,9 @@ __WEBPACK_IMPORTED_MODULE_2_electron__["app"].on("ready", () => {
     pathname: __WEBPACK_IMPORTED_MODULE_0_path___default.a.join(__dirname, "app.html"),
     protocol: "file:",
     slashes: true
-  }));
-
-  if (__WEBPACK_IMPORTED_MODULE_6_env___default.a.name === "development") {
-    mainWindow.openDevTools();
-  }
+  })); // if (env.name === "development") {
+  //   mainWindow.openDevTools();
+  // }
 
   mainWindow.webContents.on('new-window', (event, url) => {
     event.preventDefault();

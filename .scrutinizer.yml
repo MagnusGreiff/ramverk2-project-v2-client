@@ -1,0 +1,8 @@
+checks:
+    javascript: true
+
+build:
+    environment:
+        node: '8.6.0'
+        mongodb: '3.2'
+        timezone: 'Europe/Stockholm'

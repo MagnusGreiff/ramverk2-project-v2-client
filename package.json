@@ -1,13 +1,13 @@
 {
   "name": "framework1-client",
   "productName": "Client",
-  "description": "Client for project in course framework1",
+  "description": "Client for project in course framework2",
   "version": "0.0.0",
   "private": true,
   "author": "Magnus Greiff",
   "main": "app/background.js",
   "build": {
-    "appId": "com.client.framework1",
+    "appId": "com.client.framework2",
     "files": [
       "app/**/*",
       "node_modules/**/*",
