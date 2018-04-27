@@ -27,7 +27,7 @@
     "release": "npm test && webpack --config=build/webpack.app.config.js --env=production && electron-builder"
   },
   "dependencies": {
-    "chat-functions": "^1.0.6",
+    "chat-functions": "^1.0.8",
     "debug": "^3.1.0",
     "dialog": "^0.3.1",
     "fs-jetpack": "^1.0.0",
